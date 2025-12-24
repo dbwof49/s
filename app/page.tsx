@@ -353,9 +353,9 @@ export default function GlassStylePage() {
       await navigator.clipboard.writeText(text);
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
       setCopiedField(label);
-      copyTimerRef.current = setTimeout(() => setCopiedField(null), 1500);
-    } catch { 
-      haptic(50); 
+      copyTimerRef.current = setTimeout(() => setCopiedField(null), 2000);
+    } catch {
+      haptic(50);
     }
   }, []);
 
@@ -429,8 +429,11 @@ export default function GlassStylePage() {
   }, [isInitialized, userInfo.firstName, selectedCountry, selectedDomain]);
 
   useEffect(() => {
-    if (isInitialized && userInfo.firstName) generate();
-  }, [selectedCountry.code]);
+    if (isInitialized && userInfo.firstName) {
+      const timer = setTimeout(() => generate(), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedCountry.code, isInitialized, userInfo.firstName, generate]);
 
   const allDomains = useMemo(() => getAllDomains(), []);
   const displayDomain = selectedDomain === 'random' ? '随机' : selectedDomain;
@@ -464,11 +467,11 @@ export default function GlassStylePage() {
       {/* 内容层 */}
       <div className="relative z-10">
         
-        {/* 头部 */}
-        <header className="fixed top-0 left-0 right-0 h-[52px] z-40 flex items-center justify-between px-4 pt-2 transition-all duration-300">
+        {/* 头部 - 移动端优化 */}
+        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 safe-top transition-all duration-300">
           <h1
             onClick={toggleImmersive}
-            className={`text-[17px] font-semibold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] cursor-pointer select-none transition-all duration-300 active:scale-95 touch-manipulation ${
+            className={`text-[16px] sm:text-[17px] font-semibold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] cursor-pointer select-none transition-all duration-300 active:scale-95 touch-manipulation ${
               isImmersive ? 'opacity-50' : 'opacity-100'
             }`}
           >
@@ -490,11 +493,11 @@ export default function GlassStylePage() {
           </div>
         </header>
 
-        {/* 主内容 */}
-        <main 
-          className={`max-w-[420px] mx-auto px-5 pt-24 pb-10 space-y-6 transition-all duration-500 ${
-            isImmersive 
-              ? 'opacity-0 translate-y-[100px] pointer-events-none scale-95' 
+        {/* 主内容 - 移动端优化间距 */}
+        <main
+          className={`max-w-[420px] mx-auto px-4 sm:px-5 pt-20 sm:pt-24 pb-10 safe-bottom space-y-5 sm:space-y-6 transition-all duration-500 ${
+            isImmersive
+              ? 'opacity-0 translate-y-[100px] pointer-events-none scale-95'
               : 'opacity-100 translate-y-0 scale-100'
           }`}
         >
@@ -571,14 +574,14 @@ export default function GlassStylePage() {
                 </div>
               </section>
 
-              {/* 生成按钮 */}
+              {/* 生成按钮 - 移动端优化 */}
               <button
                 ref={buttonRef}
                 onClick={generate}
-                className="w-full py-4 rounded-[18px] shadow-[0_0_20px_rgba(0,122,255,0.4)] border border-white/20 flex items-center justify-center gap-2.5 touch-manipulation overflow-hidden relative transition-all duration-200 bg-gradient-to-b from-[#007AFF]/90 to-[#0055b3]/90 active:scale-[0.96]"
+                className="w-full py-3.5 sm:py-4 rounded-[16px] sm:rounded-[18px] shadow-[0_0_15px_rgba(0,122,255,0.3)] border border-white/20 flex items-center justify-center gap-2 sm:gap-2.5 touch-manipulation overflow-hidden relative transition-all duration-200 bg-gradient-to-b from-[#007AFF]/90 to-[#0055b3]/90 active:scale-[0.97]"
               >
-                <Icon name="sparkles" className="w-5 h-5 text-white/90 drop-shadow-sm" />
-                <span className="text-[17px] font-semibold tracking-tight text-white drop-shadow-md">
+                <Icon name="sparkles" className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 drop-shadow-sm" />
+                <span className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white drop-shadow-md">
                   生成新身份
                 </span>
               </button>

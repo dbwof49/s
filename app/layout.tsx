@@ -8,10 +8,16 @@ export const metadata: Metadata = {
   title: "脸书小助手",
   description: "专为 Facebook 注册设计的身份生成工具，智能生成符合真实用户特征的姓名、生日、手机号、邮箱等信息，支持全球100+国家地区，提高账号注册成功率",
   keywords: "Facebook创号,FB注册助手,Facebook账号生成器,FB身份生成,社交媒体注册工具,Facebook注册信息,临时邮箱,测试账号",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover"
+  },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "FB创号小助手"
   },
   openGraph: {
@@ -34,10 +40,12 @@ export default function RootLayout({
     <html lang="zh-CN">
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="theme-color" content="#1877F2" />
         <meta name="application-name" content="FB创号小助手" />
         <meta name="apple-mobile-web-app-title" content="FB创号小助手" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>" />
       </head>
       <body className="antialiased">

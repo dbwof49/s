@@ -1,0 +1,17 @@
+{
+  "name": "脸书小助手",
+  "short_name": "FB助手",
+  "description": "专为 Facebook 注册设计的身份生成工具",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1877F2",
+  "theme_color": "#1877F2",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

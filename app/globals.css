@@ -2,16 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 全局样式 - Apple 风格 */
+/* 全局样式 - 移动端优化 */
 body {
-  background-color: #F5F5F7; /* 使用苹果的浅灰色背景 */
-  color: #1c1c1e; /* 深色文字 */
+  background-color: #F5F5F7;
+  color: #1c1c1e;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* 移动端性能优化 */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: none;
+  /* 防止iOS Safari底部工具栏影响 */
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 /* 隐藏滚动条但保持功能 */
@@ -33,18 +36,18 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* 玻璃拟态效果 - 更接近 iOS/macOS 风格 */
+/* 玻璃拟态效果 - 移动端优化版本 */
 .glass {
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .glass-dark {
   background: rgba(50, 50, 50, 0.6);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -83,9 +86,33 @@ input, textarea, [contenteditable] {
 /* 性能优化 - GPU 加速 */
 .gpu-accelerate {
   transform: translateZ(0);
-  will-change: transform;
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+/* 移动端安全区域适配 */
+@supports (padding: max(0px)) {
+  .safe-top {
+    padding-top: max(env(safe-area-inset-top), 0.5rem);
+  }
+  .safe-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  }
+  .safe-left {
+    padding-left: max(env(safe-area-inset-left), 0);
+  }
+  .safe-right {
+    padding-right: max(env(safe-area-inset-right), 0);
+  }
+}
+
+/* 移动端触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+  button:not(.no-min-size),
+  a:not(.no-min-size) {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* 移动端输入框优化 */

@@ -206,14 +206,14 @@ export default function FavoritesPage() {
   return (
     <div className="min-h-screen relative font-sans text-white pb-10 selection:bg-blue-400/30 overflow-x-hidden">
       <div className="relative z-10">
-        <header className="fixed top-0 left-0 right-0 h-[52px] z-40 flex items-center justify-between px-4 pt-2 transition-all duration-300">
-          <h1 className="text-[17px] font-semibold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 safe-top transition-all duration-300">
+          <h1 className="text-[16px] sm:text-[17px] font-semibold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             我的收藏
           </h1>
           <MenuButton onClick={() => { haptic(20); setShowMenu(true); }} />
         </header>
 
-        <main className="max-w-[420px] mx-auto px-5 pt-20 pb-10">
+        <main className="max-w-[420px] mx-auto px-4 sm:px-5 pt-18 sm:pt-20 pb-10 safe-bottom">
           {favorites.length > 0 ? (
             <div className="space-y-3">
               {favorites.map((mail) => (

@@ -15,6 +15,11 @@ export const SharedBackground = memo(() => {
           className={`w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="eager"
           onLoad={setLoaded}
+          style={{
+            imageRendering: '-webkit-optimize-contrast',
+            transform: 'translateZ(0)',
+            willChange: 'opacity'
+          }}
         />
       )}
     </div>
